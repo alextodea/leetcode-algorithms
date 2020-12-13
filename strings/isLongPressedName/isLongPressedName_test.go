@@ -42,7 +42,7 @@ func TestIsLongPressedName5(t *testing.T) {
 	targetNames := TargetNames{name: "alex", typed: "aaleexa"}
 	testResult := targetNames.isLongPressed()
 
-	if testResult == false {
+	if testResult == true {
 		t.Error()
 	}
 }
