@@ -2,6 +2,22 @@ package linkedLists
 
 import "testing"
 
+func areListsEqual(l1 *ListNode, l2 *ListNode) bool {
+	if l1 == nil && l2 == nil {
+		return true
+	}
+
+	if l1 == nil || l2 == nil {
+		return false
+	}
+
+	if l1.Val == l2.Val {
+		return areListsEqual(l1.Next, l2.Next)
+	}
+
+	return false
+}
+
 func convertArrayToList(arr []int) *ListNode {
 	if len(arr) < 1 {
 		return nil
@@ -24,7 +40,7 @@ func TestSwapNodes(t *testing.T) {
 	 expectedResult := convertArrayToList([]int{2,1,4,3})
 	 result := swapPairs(head)
 
-	 if result != expectedResult {
+	 if !areListsEqual(result,expectedResult) {
 		 t.Error("nodes are not swapped correctly")
 	 }
 }
