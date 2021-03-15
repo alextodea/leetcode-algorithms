@@ -16,7 +16,7 @@ func TestAddTwoNumbersWhenOneInputIsNil(t *testing.T) {
 	}
 }
 
-func TestAddTwoNumbers1(t *testing.T) {
+func TestAddTwoNumbersWhenBothListsAreEqual(t *testing.T) {
 	l1 := convertArrayToList([]int{2, 4, 3})
 	l2 := convertArrayToList([]int{5, 6, 4})
 	result := addTwoNumbers(l1, l2)
@@ -25,6 +25,25 @@ func TestAddTwoNumbers1(t *testing.T) {
 	areListsEqual(result, expectedResult)
 }
 
+func TestAddTwoNumbersWhenListsAreUnequal(t *testing.T) {
+	l1 := convertArrayToList([]int{9, 9, 9, 9, 9, 9, 9})
+	l2 := convertArrayToList([]int{8, 9, 9, 9})
+	result := addTwoNumbers(l1, l2)
+	expectedResult := convertArrayToList([]int{8, 9, 9, 9, 0, 0, 0, 1})
+
+	areListsEqual(result, expectedResult)
+}
+
+func TestAddTwoNumbersWhenListsAreUnequal2(t *testing.T) {
+	l2 := convertArrayToList([]int{9, 9, 9, 9, 9, 9, 9})
+	l1 := convertArrayToList([]int{9, 9, 9, 9})
+	result := addTwoNumbers(l1, l2)
+	expectedResult := convertArrayToList([]int{8, 9, 9, 9, 0, 0, 0, 1})
+
+	areListsEqual(result, expectedResult)
+}
+
+///////////////////////// HELPERS
 func areListsEqual(l1 *ListNode, l2 *ListNode) bool {
 	if l1 == nil && l2 == nil {
 		return true
