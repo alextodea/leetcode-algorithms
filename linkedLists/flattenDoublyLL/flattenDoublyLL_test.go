@@ -2,12 +2,12 @@ package linkedLists
 
 import "testing"
 
-func convertArrayToList(arr []int) *ListNode {
+func convertArrayToList(arr []int) *Node {
 	if len(arr) < 1 {
 		return nil
 	}
 
-	head := &ListNode{Val: arr[0], Prev: nil, Next: convertArrayToList(arr[1:]), Child: nil}
+	head := &Node{Val: arr[0], Prev: nil, Next: convertArrayToList(arr[1:]), Child: nil}
 	tail := head.Next
 
 	if tail != nil {
@@ -16,7 +16,7 @@ func convertArrayToList(arr []int) *ListNode {
 	return head
 }
 
-func testNodeLists(t *testing.T, expectedResult *ListNode, testResult *ListNode) {
+func testNodeLists(t *testing.T, expectedResult *Node, testResult *Node) {
 	for testResult != nil {
 		if testResult.Val != expectedResult.Val {
 			t.Error("heads not equal")
@@ -27,7 +27,7 @@ func testNodeLists(t *testing.T, expectedResult *ListNode, testResult *ListNode)
 }
 
 func TestWhenListIsNull(t *testing.T) {
-	var root *ListNode
+	var root *Node
 	result := flatten(root)
 	if result != nil {
 		t.Error("result should be null")
