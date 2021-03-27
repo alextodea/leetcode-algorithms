@@ -45,9 +45,9 @@ func TestWhenInputContainsListWithOneNode(t *testing.T) {
 	list := convertArrayToList([]int{1})
 	x := 0
 	result := insert(list, x)
-	expectedResult := convertArrayToList([]int{1,0})
+	expectedResult := convertArrayToList([]int{1, 0})
 
-	testNodeLists(t,result,expectedResult)
+	testNodeLists(t, result, expectedResult)
 }
 
 func TestWhenInputContainsListWithMultipleNodes(t *testing.T) {
@@ -56,5 +56,32 @@ func TestWhenInputContainsListWithMultipleNodes(t *testing.T) {
 	result := insert(list, x)
 	expectedResult := convertArrayToList([]int{3, 4, 1, 2})
 
-	testNodeLists(t,result,expectedResult)
+	testNodeLists(t, result, expectedResult)
+}
+
+func Test4(t *testing.T) {
+	list := convertArrayToList([]int{3, 5, 1})
+	x := 0
+	result := insert(list, x)
+	expectedResult := convertArrayToList([]int{3, 5, 0, 1})
+
+	testNodeLists(t, result, expectedResult)
+}
+
+func Test5(t *testing.T) {
+	list := convertArrayToList([]int{1, 3, 5})
+	x := 0
+	result := insert(list, x)
+	expectedResult := convertArrayToList([]int{1, 3, 5, 0})
+
+	testNodeLists(t, result, expectedResult)
+}
+
+func Test6(t *testing.T) {
+	list := convertArrayToList([]int{3, 4, 1})
+	x := 2
+	result := insert(list, x)
+	expectedResult := convertArrayToList([]int{3, 4, 1, 2})
+
+	testNodeLists(t, result, expectedResult)
 }

@@ -25,10 +25,20 @@ func insert(aNode *Node, x int) *Node {
 	return head
 }
 
-func insertRecursive(curr, next *Node, x int) {
-	if curr.Val <= x && x <= next.Val || *curr == *next {
-		curr.Next = &Node{Val: x, Next: next}
+func insertRecursive(slow, fast *Node, x int) {
+	if slow.Val <= x && x <= slow.Next.Val {
+		slow.Next = &Node{Val: x, Next: slow.Next}
 		return
 	}
-	insertRecursive(next, next.Next, x)
+
+	if fast.Next.Next == slow.Next { // next iteration is end of cycle
+		if x <= slow.Next.Val {
+			slow.Next.Next = &Node{Val: x, Next: slow.Next.Next}
+		} else {
+			slow.Next = &Node{Val: x, Next: slow.Next}
+		}
+		return
+	}
+
+	insertRecursive(slow.Next, fast.Next.Next, x)
 }
