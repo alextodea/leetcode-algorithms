@@ -6,6 +6,8 @@ func Constructor(val int) *TreeNode {
 	return &TreeNode{Val: val, Left: nil, Right: nil}
 }
 
+
+
 func TestWhenInputArrayHas1Element(t *testing.T) {
 	result := buildTree([]int{-1}, []int{-1})
 	expectedResult := Constructor(-1)
