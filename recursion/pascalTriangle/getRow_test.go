@@ -34,10 +34,3 @@ func Test3(t *testing.T) {
 
 	compareLists(t,result,expectedResult)
 }
-
-func Test4(t *testing.T) {
-	result := getRow(30)
-	expectedResult := []int{1,2,1}
-
-	compareLists(t,result,expectedResult)
-}

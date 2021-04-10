@@ -1,23 +1,39 @@
 package recursion
 
+import (
+	"strconv"
+)
+
 func getRow(rowIndex int) []int {
 	if rowIndex == 0 {
 		return []int{1}
 	}
 
+	return getRowIndex(rowIndex)
+}
+
+var memo = make(map[string]int)
+
+func getRowIndex(rowIndex int) []int {
 	var output []int
 
-	for j := 0; j <= rowIndex; j++ {
-		output = append(output, getIndex(rowIndex, j))
+	for colIndex := 0; colIndex <= rowIndex; colIndex++ {
+		output = append(output, getIthIndex(rowIndex, colIndex))
 	}
 
 	return output
 }
 
-func getIndex(i, j int) int {
-	if i == 0 || j==0 || j == i {
+func getIthIndex(row, col int) int {
+	if col == 0 || col == row {
 		return 1
 	}
 
-	return getIndex(i-1, j-1) + getIndex(i-1, j)
+	key := strconv.Itoa(row) + strconv.Itoa(col)
+
+	if _, ithIndexExistsInMemo := memo[key]; !ithIndexExistsInMemo {
+		memo[key] = getIthIndex(row-1, col-1) + getIthIndex(row-1, col)
+	}
+
+	return memo[key]
 }
