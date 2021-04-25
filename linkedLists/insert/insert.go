@@ -5,40 +5,44 @@ type Node struct {
 	Next *Node
 }
 
+func Constructor(val int) *Node {
+	return &Node{Val: val, Next: nil}
+}
+
 func insert(aNode *Node, x int) *Node {
-	newNode := &Node{Val: x, Next: nil}
+	newNode := Constructor(x)
 	if aNode == nil {
 		newNode.Next = newNode
 		return newNode
 	}
 
-	if aNode.Next == nil {
-		aNode.Next = newNode
-		newNode.Next = aNode
-		return aNode
-	}
+	prev := aNode.Next
+	curr := prev.Next
+	var doInsert bool
 
-	head := aNode
-
-	insertRecursive(aNode, aNode.Next, x)
-
-	return head
-}
-
-func insertRecursive(slow, fast *Node, x int) {
-	if slow.Val <= x && x <= slow.Next.Val {
-		slow.Next = &Node{Val: x, Next: slow.Next}
-		return
-	}
-
-	if fast.Next.Next == slow.Next { // next iteration is end of cycle
-		if x <= slow.Next.Val {
-			slow.Next.Next = &Node{Val: x, Next: slow.Next.Next}
-		} else {
-			slow.Next = &Node{Val: x, Next: slow.Next}
+	for prev != aNode {
+		if prev.Val <= x && x <= curr.Val {
+			doInsert = true
 		}
-		return
+
+		if prev.Val > curr.Val {
+			if prev.Val <= x || x <= curr.Val {
+				doInsert = true
+			}
+		}
+
+		if doInsert == true {
+			prev.Next = newNode
+			newNode.Next = curr
+			return aNode
+		}
+
+		prev = prev.Next
+		curr = curr.Next
 	}
 
-	insertRecursive(slow.Next, fast.Next.Next, x)
+	prev.Next = newNode
+	newNode.Next = curr
+
+	return aNode
 }

@@ -85,3 +85,30 @@ func Test6(t *testing.T) {
 
 	testNodeLists(t, result, expectedResult)
 }
+
+func Test7(t *testing.T) {
+	list := convertArrayToList([]int{1, 3, 5})
+	x := 1
+	result := insert(list, x)
+	expectedResult := convertArrayToList([]int{1, 1, 3, 5})
+
+	testNodeLists(t, result, expectedResult)
+}
+
+func Test8(t *testing.T) {
+	list := convertArrayToList([]int{1, 3, 5})
+	x := 4
+	result := insert(list, x)
+	expectedResult := convertArrayToList([]int{1, 3, 4, 5})
+
+	testNodeLists(t, result, expectedResult)
+}
+
+func Test9(t *testing.T) {
+	list := convertArrayToList([]int{1, 3, 5})
+	x := 6
+	result := insert(list, x)
+	expectedResult := convertArrayToList([]int{1, 3, 5, 6})
+
+	testNodeLists(t, result, expectedResult)
+}
