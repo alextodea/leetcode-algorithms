@@ -1,7 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	kargermincut "leetcodeAlgorithms/algorithmsCourse/kargerMinCut"
+	"sort"
+)
+
+var testFile = "kargerMinCut"
 
 func main() {
-	fmt.Println("main func")
+	minCuts := kargermincut.Run(testFile, 10)
+	sort.Ints(minCuts)
+	fmt.Println(minCuts)
 }

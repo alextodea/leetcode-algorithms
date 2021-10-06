@@ -1,3 +1,3 @@
-module github.com/alextodea/leetcode-algorithms
+module leetcodeAlgorithms
 
-go 1.15
+go 1.17
