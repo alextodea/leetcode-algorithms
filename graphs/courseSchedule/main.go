@@ -1,12 +1,18 @@
 package courseschedule
 
 func canFinish(numCourses int, prerequisites [][]int) bool {
-	if len(prerequisites) < 1 || numCourses == 0 {
-		return false
+	if len(prerequisites) == 0 {
+		return true
 	}
 
-	adjacencyList := AdjacencyList(make(AdjacencyList, numCourses))
-	adjacencyList.initialize(numCourses, prerequisites)
-	adjacencyList.determinePrerequisites()
-	return false // temporary
+	g := Graph{adjacencyList: make([]Vertex, numCourses)}
+	g.initialize(numCourses, prerequisites)
+
+	for i := 0; i < len(g.adjacencyList); i++ {
+		if g.hasCycle(i) {
+			return false
+		}
+	}
+
+	return true
 }

@@ -20,6 +20,18 @@ func Test2(t *testing.T) {
 	prerequisites[0] = []int{1, 0}
 	prerequisites[1] = []int{0, 1}
 	result := canFinish(numCourses, prerequisites)
+	expectedResult := false
+
+	if result != expectedResult {
+		t.Error("result should be", expectedResult)
+	}
+}
+
+func Test3(t *testing.T) {
+	numCourses := 2
+	prerequisites := make([][]int, 1)
+	prerequisites[0] = []int{0, 1}
+	result := canFinish(numCourses, prerequisites)
 	expectedResult := true
 
 	if result != expectedResult {

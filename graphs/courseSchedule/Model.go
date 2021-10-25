@@ -1,41 +1,54 @@
 package courseschedule
 
-type AdjacencyList []Vertex
+type Graph struct {
+	adjacencyList []Vertex
+}
 
 type Vertex struct {
-	parent        int
-	order         int
-	outgoingEdges []*Vertex
+	visited       bool
+	outgoingEdges []int
 }
 
-func (al *AdjacencyList) initialize(numCourses int, prerequisites [][]int) {
-	al.initializeVertices(numCourses)
-	al.initializeEdges(prerequisites)
+func (g *Graph) initialize(numCourses int, prerequisites [][]int) {
+	g.initializeEdges(prerequisites)
 }
 
-func (al *AdjacencyList) initializeEdges(prerequisites [][]int) {
+func (g *Graph) initializeEdges(prerequisites [][]int) {
 	for _, prerequisite := range prerequisites {
-		srcVertexIndex := prerequisite[1]
-		dstVertexIndex := prerequisite[0]
-		if (*al)[srcVertexIndex].outgoingEdges == nil {
-			(*al)[srcVertexIndex].outgoingEdges = []*Vertex{}
+		srcVertexIndex := prerequisite[0]
+		dstVertexIndex := prerequisite[1]
+		if g.adjacencyList[srcVertexIndex].outgoingEdges == nil {
+			g.adjacencyList[srcVertexIndex].outgoingEdges = []int{}
 		}
-		(*al)[srcVertexIndex].outgoingEdges = append((*al)[srcVertexIndex].outgoingEdges, &(*al)[dstVertexIndex])
+		g.adjacencyList[srcVertexIndex].outgoingEdges = append(g.adjacencyList[srcVertexIndex].outgoingEdges, dstVertexIndex)
 	}
 }
 
-func (al *AdjacencyList) initializeVertices(numCourses int) {
-	for i := 0; i < len(*al); i++ {
-		(*al)[i] = Vertex{parent: i}
+func (g *Graph) initializeVertices(numCourses int) {
+	for i := 0; i < len(g.adjacencyList); i++ {
+		g.adjacencyList[i] = Vertex{visited: false, outgoingEdges: []int{}}
 	}
 }
 
-func (al *AdjacencyList) dfsTopo(vertex Vertex) {
-
-}
-
-func (al *AdjacencyList) determinePrerequisites() {
-	for _, vertex := range *al {
-		al.dfsTopo(vertex)
+func (g *Graph) hasCycle(i int) bool {
+	if g.adjacencyList[i].visited {
+		return true
 	}
+
+	if len(g.adjacencyList[i].outgoingEdges) == 0 {
+		return false
+	}
+
+	g.adjacencyList[i].visited = true
+
+	for _, prerequisiteVertexIndex := range g.adjacencyList[i].outgoingEdges {
+		if g.hasCycle(prerequisiteVertexIndex) {
+			return true
+		}
+	}
+
+	g.adjacencyList[i].visited = false
+	g.adjacencyList[i].outgoingEdges = []int{}
+
+	return false
 }
