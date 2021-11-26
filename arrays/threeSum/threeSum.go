@@ -2,29 +2,40 @@ package arrays
 
 import "sort"
 
+var output [][]int
+
 func threeSum(nums []int) [][]int {
-	var output [][]int
 	if len(nums) == 0 {
 		return output
 	}
 
 	sort.Ints(nums)
 
-	twoSums := map[int][]int{}
-
-	for i := 0; i < len(nums); i++ {
-		val := nums[i]
-		if val == nums[i-1] || val == 0 {
-			continue
-		}
-
-		diff := 0 - val
-		inverseOfDiff := diff * -1
-		if twoSumsArr, exists := twoSums[inverseOfDiff]; exists {
-			output = append(output, []int{i, twoSumsArr[0], twoSumsArr[1]})
-		} else {
-			
+	for i := 1; i < len(nums) && nums[i] <= 0; i++ {
+		if i-1 == 0 || nums[i] != nums[i-1] {
+			twoSum(nums, i-1)
 		}
 	}
 	return output
+}
+
+func twoSum(nums []int, i int) {
+	val1 := nums[i]
+	target := (0 + val1) * -1
+	var left int
+	var sum int
+	right := len(nums) - 1
+
+	for left < right {
+		sum = nums[left] + nums[right]
+		if sum == target {
+			output = append(output, []int{val1, nums[left], nums[right]})
+			left++
+			right--
+		} else if sum < target {
+			left++
+		} else {
+			right--
+		}
+	}
 }
