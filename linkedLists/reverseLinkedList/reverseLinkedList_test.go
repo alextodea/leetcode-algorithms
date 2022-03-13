@@ -14,7 +14,7 @@ func TestReverseIterationLinkedList(t *testing.T) {
 }
 
 func TestRecursiveIterationLinkedList(t *testing.T) {
-	recursiveResultHead := reverseListIteratively(head)
+	recursiveResultHead := reverseListRecursively(head)
 	testAssertion(recursiveResultHead,t)
 }
 
